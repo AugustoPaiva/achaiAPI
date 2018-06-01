@@ -1,0 +1,29 @@
+{
+  "name": "achaiapi",
+  "version": "1.0.0",
+  "description": "Um REST API para o projeto do Achai.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AugustoPaiva/achaiAPI.git"
+  },
+  "keywords": [
+    "node",
+    "restful",
+    "api",
+    "supermarket",
+    "achai"
+  ],
+  "author": "Augusto Paiva, Antonio Soares",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AugustoPaiva/achaiAPI/issues"
+  },
+  "homepage": "https://github.com/AugustoPaiva/achaiAPI#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
