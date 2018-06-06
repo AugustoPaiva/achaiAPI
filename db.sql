@@ -1,3 +1,6 @@
+
+create database achai_db;
+
 CREATE TABLE user(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nome varchar(100) NOT NULL,
