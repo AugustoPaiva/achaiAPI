@@ -25,6 +25,7 @@
   "homepage": "https://github.com/AugustoPaiva/achaiAPI#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "restify": "^7.2.1"
   }
 }
