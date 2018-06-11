@@ -1,15 +1,12 @@
 const express = require('express');
 const app = express();
-
-//ISSO N É UMA ROTA HTTP SÓ PQ TEM "/" =)
+const bodyParser = require('body-parser');
 const userRoutes = require('./api/routes/user');
 
 var mysql = require("mysql");
-
+app.use(bodyParser.json());
 /*
 Database connection
-
-MUDA ESSE TROÇO AI PRA TEU BANCO LOCAL HOST
 */
 app.use(function(req, res, next){
 	res.locals.connection = mysql.createConnection({
@@ -23,7 +20,10 @@ app.use(function(req, res, next){
 	next();
 });
 
-app.use('/', userRoutes);
+
+app.use('/user', userRoutes);
+
+
 
 
 module.exports = app;
