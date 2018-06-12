@@ -1,158 +1,43 @@
 const express = require('express');
 const router = express.Router();
 
+const database = require('../queries/userQueries');
+
 /*
-Acima das rotas tem os exemplos do que é preciso passar no body
-lá em baixo tem 2 rotas que cadastram direto entregador + usuario ou cliente + usuario
+Embaixo das rotas tem as instruções do que se deve passar no Body da request
 */
 
-router.get('/users', function(req, res, next) {
-    res.locals.connection.query('SELECT * from usuarios', 
-    function (error, results, fields) {
-        if (error){ 
-            res.send(error); 
-            return; 
-        }
-        res.send(results);
-	});
-});
-
-
-router.get('/clients', function(req, res, next) {
-    res.locals.connection.query('SELECT * from clientes', 
-    function (error, results, fields) {
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-	});
-});
-
-router.get('/workers', function(req, res, next) {
-    res.locals.connection.query('SELECT * from entregadores', 
-    function (error, results, fields) {
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-	});
-});
-
-
-router.get('/:id',function(req,res,next){
-    const id = parseInt(req.params.id);
-    res.locals.connection.query('SELECT * from usuarios WHERE id = ' + id,
-    function(error,results,fields){
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-    });
-});
-
-router.get('/client/:id',function(req,res,next){
-    var id = parseInt(req.params.id);
-    res.locals.connection.query('SELECT * from clientes WHERE id = ' + id,
-    function(error,results,fields){
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-    });
-});
-
-router.get('/worker/:id',function(req,res,next){
-    const id = parseInt(req.params.id);
-    res.locals.connection.query('SELECT * from entregadores WHERE id = ' + id,
-    function(error,results,fields){
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-    });
-});
-
+router.get('/',database.getAllUsers);
+router.get('/clients',database.getAllClients);
+router.get('/workers', database.getAllWorkers);
+router.get('/:id',database.getUserbyId);
+router.get('/client/:id', database.getClientbyId);
+router.get('/worker/:id', database.getWorkerbyId);
+router.post('/user',database.createUser);
+router.post('/client',database.createClient);
+router.post('/worker',database.createWorker);
+router.post('/', database.login);
 
 
 /*
 PRA CRIAR USUARIO, USAR:
 CPF E SENHA REPETIDOS DEVEM RETORNAR ERROR
-{
-    "nome" : "teu nome",
-    "cpf" : "12345678910",
-    "email" : "XXXXXXX",
-    "senha" : "XXX"
-}
-*/
-router.post('/user',function(req,res){
-    const user = req.body;
-    res.locals.connection.query("INSERT INTO usuarios SET ?", user,
-    function(error,results,fields){
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-    });
-});
+{ "nome" : "teu nome", "cpf" : "12345678910", "email" : "XXXXXXX", "senha" : "XXX" }
 
-
-
-/*
 PRA CRIAR UM CLIENTE, USAR:
-{
-    user_id = X
-}
-*/
-router.post('/client',function(req,res){
-    const client = req.body;
-    res.locals.connection.query("INSERT INTO clientes SET ?", client,
-    function(error,results,fields){
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-    });
-});
+{ user_id = id}
 
-/*
 PRA CRIAR ENTREGADOR, USAR:
 CNH DUPLICADA DA ERRO:
-{
-    "user_id" : X,
-    "nota" : null,
-    "cnh" : "XXXXXXX"
-}
+{ "user_id" : X, "nota" : null,"cnh" : "XXXXXXX"}
 */
-router.post('/worker',function(req,res){
-    const worker = req.body;
-    res.locals.connection.query("INSERT INTO entregadores SET ?", user,
-    function(error,results,fields){
-        if (error){
-            res.send(error);
-            return;
-        }
-        res.send(results);
-    });
-});
 
-router.post('/',function(req,res,next){
-    const login = req.body;
-    res.locals.connection.query("SELECT * FROM usuarios WHERE email = '" + login.email + "' AND senha = '" + login.senha +"'",
-    function(error,results,fields){
-        if (error) {
-            res.send(error);
-            return;
-        }
-        res.send(results[1]);
-    });
-});
+module.exports = router;
+
+
+
+
+
 
 
 
@@ -164,7 +49,6 @@ A função abaixo cadastra um cliente + usuario, exemplo de body:
     email: email,
     senha: senha 
 }
-
 router.post('/createclient',function(req,res){
     const user = req.body;
     res.locals.connection.query("INSERT INTO usuarios SET ?", user,
@@ -214,4 +98,3 @@ router.post('/createworker',function(req,res){
     });
 });
 */
-module.exports = router;
