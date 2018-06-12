@@ -6,33 +6,34 @@ Acima das rotas tem os exemplos do que é preciso passar no body
 lá em baixo tem 2 rotas que cadastram direto entregador + usuario ou cliente + usuario
 */
 
-router.get('/allusers', function(req, res, next) {
+router.get('/users', function(req, res, next) {
     res.locals.connection.query('SELECT * from usuarios', 
     function (error, results, fields) {
-        if (error){
-            res.send({ success: false, message: 'database error', error: error });
-            return;
+        if (error){ 
+            res.send(error); 
+            return; 
         }
         res.send(results);
 	});
 });
 
-router.get('/allclients', function(req, res, next) {
+
+router.get('/clients', function(req, res, next) {
     res.locals.connection.query('SELECT * from clientes', 
     function (error, results, fields) {
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
         res.send(results);
 	});
 });
 
-router.get('/allworkers', function(req, res, next) {
+router.get('/workers', function(req, res, next) {
     res.locals.connection.query('SELECT * from entregadores', 
     function (error, results, fields) {
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
         res.send(results);
@@ -45,7 +46,7 @@ router.get('/:id',function(req,res,next){
     res.locals.connection.query('SELECT * from usuarios WHERE id = ' + id,
     function(error,results,fields){
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
         res.send(results);
@@ -57,7 +58,7 @@ router.get('/client/:id',function(req,res,next){
     res.locals.connection.query('SELECT * from clientes WHERE id = ' + id,
     function(error,results,fields){
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
         res.send(results);
@@ -69,7 +70,7 @@ router.get('/worker/:id',function(req,res,next){
     res.locals.connection.query('SELECT * from entregadores WHERE id = ' + id,
     function(error,results,fields){
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
         res.send(results);
@@ -88,12 +89,12 @@ CPF E SENHA REPETIDOS DEVEM RETORNAR ERROR
     "senha" : "XXX"
 }
 */
-router.post('/createuser',function(req,res){
+router.post('/user',function(req,res){
     const user = req.body;
     res.locals.connection.query("INSERT INTO usuarios SET ?", user,
     function(error,results,fields){
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
         res.send(results);
@@ -108,15 +109,15 @@ PRA CRIAR UM CLIENTE, USAR:
     user_id = X
 }
 */
-router.post('/client/create',function(req,res){
+router.post('/client',function(req,res){
     const client = req.body;
     res.locals.connection.query("INSERT INTO clientes SET ?", client,
     function(error,results,fields){
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
-        res.send({ success: true, messagem: 'Cliente cadastrado com sucesso', results:results});
+        res.send(results);
     });
 });
 
@@ -129,23 +130,29 @@ CNH DUPLICADA DA ERRO:
     "cnh" : "XXXXXXX"
 }
 */
-router.post('/worker/create',function(req,res){
+router.post('/worker',function(req,res){
     const worker = req.body;
     res.locals.connection.query("INSERT INTO entregadores SET ?", user,
     function(error,results,fields){
         if (error){
-            res.send({ success: false, message: 'database error', error: error });
+            res.send(error);
             return;
         }
-        res.send({ success: true, messagem: 'Entregador cadastrado com sucesso', results:results});
+        res.send(results);
     });
 });
 
-
-
-
-
-
+router.post('/',function(req,res,next){
+    const login = req.body;
+    res.locals.connection.query("SELECT * FROM usuarios WHERE email = '" + login.email + "' AND senha = '" + login.senha +"'",
+    function(error,results,fields){
+        if (error) {
+            res.send(error);
+            return;
+        }
+        res.send(results[1]);
+    });
+});
 
 
 
