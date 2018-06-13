@@ -7,29 +7,14 @@ const database = require('../queries/userQueries');
 Embaixo das rotas tem as instruções do que se deve passar no Body da request
 */
 
-router.get('/',database.getAllUsers);
-router.get('/clients',database.getAllClients);
-router.get('/workers', database.getAllWorkers);
-router.get('/:id',database.getUserbyId);
-router.get('/client/:id', database.getClientbyId);
-router.get('/worker/:id', database.getWorkerbyId);
-router.post('/user',database.createUser);
-router.post('/client',database.createClient);
-router.post('/worker',database.createWorker);
-router.post('/', database.login);
-
-
+router.get('/users',database.getAllUsers);
+router.get('/users/:id',database.getUserbyId);
+router.post('/users',database.createUser);
+router.post('/login/', database.login);
 /*
 PRA CRIAR USUARIO, USAR:
-CPF E SENHA REPETIDOS DEVEM RETORNAR ERROR
 { "nome" : "teu nome", "cpf" : "12345678910", "email" : "XXXXXXX", "senha" : "XXX" }
-
-PRA CRIAR UM CLIENTE, USAR:
-{ user_id = id}
-
-PRA CRIAR ENTREGADOR, USAR:
-CNH DUPLICADA DA ERRO:
-{ "user_id" : X, "nota" : null,"cnh" : "XXXXXXX"}
+(CPF E EMAIL REPETIDOS DEVEM RETORNAR ERRO)
 */
 
 module.exports = router;

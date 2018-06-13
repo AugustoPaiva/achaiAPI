@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const userRoutes = require('./api/routes/user');
+const clientRoutes = require('./api/routes/client');
+const workerRoutes = require('./api/routes/worker');
 
 var mysql = require("mysql");
 app.use(bodyParser.json());
@@ -21,7 +23,9 @@ app.use(function(req, res, next){
 });
 
 
-app.use('/user', userRoutes);
+app.use('/', userRoutes);
+app.use('/',clientRoutes);
+app.use('/',workerRoutes);
 
 
 
