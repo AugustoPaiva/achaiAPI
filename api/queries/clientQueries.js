@@ -26,6 +26,7 @@ module.exports.getClientbyId = function(req,res,next){
                 return;
             }
             client.nome = results[0].nome;
+            client.cpf = results[0].cpf;
             client.email = results[0].email;
             client.senha = results[0].senha;
             res.send(client)
@@ -47,8 +48,8 @@ module.exports.createClient = function(req,res){
 };*/
 
 module.exports.createClient = function(req,res){
-    const user = {"nome":req.body.nome,"email":req.body.email,"senha":req.body.senha};
-    const client = {"user_id":"","cpf":req.body.cpf};
+    const user = {"nome":req.body.nome, "cpf":req.body.cpf,"email":req.body.email,"senha":req.body.senha};
+    const client = {"user_id": null};
     res.locals.connection.query("INSERT INTO usuarios SET ?", user,
     function(error, results, fields){
             if (error){

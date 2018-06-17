@@ -22,8 +22,8 @@ module.exports.getUserbyId = function(req,res,next){
 };
 
 module.exports.getUserbyEmail = function(req,res,next){
-    const email = req.body;
-    res.locals.connection.query('SELECT * from usuarios WHERE email = ' + email,
+    const email = req.body.email;
+    res.locals.connection.query("SELECT * from usuarios WHERE email = '" + email + "'",
     function(error,results,fields){
         if (error){
             res.send(error);
