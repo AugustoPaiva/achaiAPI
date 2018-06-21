@@ -1,7 +1,7 @@
 {
   "name": "achaiapi",
   "version": "1.0.0",
-  "description": "Um REST API para o projeto do Achai.",
+  "description": "Rest API do projeto Achaí",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,6 +26,8 @@
   "dependencies": {
     "express": "^4.16.3",
     "mysql": "^2.15.0",
-    "restify": "^7.2.1"
+    "mysql2": "^1.5.3",
+    "restify": "^7.2.1",
+    "sequelize": "^4.38.0"
   }
 }
