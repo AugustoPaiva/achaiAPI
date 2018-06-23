@@ -4,14 +4,18 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.STRING
         },
         cpf: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique:true
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique:true
         },
         senha: {
-            type: Sequelize.INTEGER
-        }
+            type: Sequelize.STRING
+        },
+
+        
     });
     return Usuario;
 }

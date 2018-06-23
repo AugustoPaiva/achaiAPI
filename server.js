@@ -21,7 +21,8 @@ db.sequelize.sync({force: true}).then(() => {
     console.log('Drop and Resync with { force: true }');
   });
    
-  require('./api/routes/userRoutes.js')(app);
+  require('./api/rotas/rotasUsuario.js')(app);
+  require('./api/rotas/rotasCliente.js')(app);
    
   // Create a Server
   var server = app.listen(3000, function () {
