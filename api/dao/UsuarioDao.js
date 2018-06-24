@@ -1,4 +1,4 @@
-class ControladorUsuario{
+class UsuarioDao{
     constructor(db_usuario){
         this.usuario = db_usuario;
     }
@@ -9,7 +9,7 @@ class ControladorUsuario{
         .catch(erro => erro);
     }
 
-    usuarioPorId(parametros){
+    usuarioPorInfo(parametros){
         return this.usuario.findOne({where:parametros})
         .then(resultado => resultado)
         .catch(erro => erro); 
@@ -36,4 +36,4 @@ class ControladorUsuario{
     }
 }
 
-module.exports = ControladorUsuario;
+module.exports = UsuarioDao;

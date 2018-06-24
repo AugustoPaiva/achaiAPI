@@ -22,7 +22,7 @@ db.sequelize.sync({force: true}).then(() => {
   });
    
   require('./api/rotas/rotasUsuario.js')(app);
-  require('./api/rotas/rotasCliente.js')(app);
+  //require('./api/rotas/rotasCliente.js')(app);
    
   // Create a Server
   var server = app.listen(3000, function () {

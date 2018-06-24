@@ -1,33 +1,36 @@
-var ControladorUsuario = require('../controladores/ControladorUsuario');
+const controladorUsuario = require('../controladores/controladorUsuario');
 const db = require('../../config/config.js');
 
+const UsuarioDao = require('../dao/UsuarioDao');
 
 module.exports = function(app){
-    const controladorUsuario = new ControladorUsuario(db.usuario);
+    const usuarioDao = new UsuarioDao(db.usuario);
     
     app.get('/usuarios', (req,res) => {
-        controladorUsuario.retornaTodosUsuarios()
-        .then(usuarios => {
-            res.send(usuarios);
-        });
+        
+        controladorUsuario.retornaTodosUsuarios(req,res)
+        .then(usuario => {
+            res.send(usuario);
+        })
+        
     });
 
     app.get('/usuarios/:id',(req,res) => {
-        controladorUsuario.usuarioPorId(req.params)
+        usuarioDao.usuarioPorInfo(req.params)
         .then(usuario => {
             res.send(usuario);
         })
     });
-        
+    
     app.post('/usuarios', (req,res) => {
-        controladorUsuario.criarUsuario(req.body)
+        usuarioDao.criarUsuario(req.body)
         .then(resposta => {
             res.send(resposta)
         });
     });
 
     app.post('/login', (req,res) => {
-        controladorUsuario.login(req.body)
+        usuarioDao.login(req.body)
         .then(resposta => {
             res.send(resposta);
         })
@@ -36,3 +39,4 @@ module.exports = function(app){
     //app.post('/usuarios/get', controladorUsuario.usuarioPorEmail);
     
 }
+//INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`) VALUES (1, 'ndsdome', 'sdsd', 'fdfdf', 'fgfgf');

@@ -1,4 +1,4 @@
-var ControladorCliente = require('../controladores/ControladorCliente');
+/*var ControladorCliente = require('../controladores/ControladorCliente');
 const db = require('../../config/config.js');
 
 
