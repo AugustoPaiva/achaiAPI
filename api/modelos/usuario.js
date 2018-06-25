@@ -14,8 +14,6 @@ module.exports = (sequelize,Sequelize) => {
         senha: {
             type: Sequelize.STRING
         },
-
-        
     });
     return Usuario;
 }

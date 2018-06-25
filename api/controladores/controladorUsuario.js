@@ -1,22 +1,42 @@
 const db = require('../../config/config.js');
-const UsuarioDao = require('../dao/UsuarioDao');
-const usuarioDao = new UsuarioDao(db.usuario);
 
-var mensagem = {
-    "carro" : "carro",
-    "coroa": "coroa"
-}
-module.exports.retornaTodosUsuarios =  function(req,res) {
-    return usuarioDao.retornaTodosUsuarios()
-        .then(usuarios => {
-            var userio = teste(usuarios);
-            res.send(userio);
-    });
-};
-
-function teste(variavel){
-    if(variavel != "ndsdome"){
-        return "true baby";
+class ControladorUsuario{
+    constructor(){
+        this.usuario = db.usuario;
     }
 
+    retornaTodosUsuarios(){
+        return this.usuario.findAll()
+        .then(resultado => resultado)
+        .catch(erro => erro);
+    }
+
+    usuarioPorId(parametros){
+        return this.usuario.findOne({where:parametros})
+        .then(resultado => resultado)
+        .catch(erro => erro); 
+    }
+
+    criarUsuario(dados){
+        //criar funções de verificar cpf e email e chamar aqui
+        return this.usuario.create(dados)
+        .then(resultado => resultado)
+        .catch(erro => erro); 
+        
+    }
+
+    verificarCPF(cpf){
+        return this.usuario.findOne({where:{cpf:cpf}})
+        .then(resultado => resultado)
+        .catch(erro => erro);
+    }
+
+    login(login){
+        return this.usuario.findOne({where:login})
+        .then(resultados => resultados)
+        .catch(erro => erro);
+    }
 }
+
+module.exports = ControladorUsuario;
+

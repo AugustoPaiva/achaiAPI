@@ -1,38 +1,34 @@
-const db = require('../../config/config.js');
-const ClienteDao = require('../dao/ClienteDao');
-const clienteDao = new UsuarioDao(db.cliente);
-
-const UsuarioDao = require('../dao/UsuarioDao');
-const usuarioDao = new UsuarioDao(db.usuario);
-
+const modelos = require('../../config/config.js');
 
 class ControladorCliente{
+    constructor(){
+        this.cliente = modelos.cliente;
     
-    constructor(db_cliente){
-        this.cliente = db_cliente;
     }
 
-    criarCliente(novoCliente){
-        cliente = {
-            idUsuario = "0"
-        }
-        
-        //criar funções de verificar cpf e email e chamar aqui
-         usuarioDao.create(novoClinete)
-        .then(resultado => cliente.idUsuario = resultado)
-        .catch(erro => erro); 
-
-        clienteDao.create(cliente)
+    retornaTodosClientes(){
+        return this.cliente.findAll()
         .then(resultado => resultado)
         .catch(erro => erro);
-        
-
     }
+
+    clientePorId(parametros){
+        return this.cliente.findOne({where:parametros})
+        .then(resultado => resultado)
+        .catch(erro => erro); 
+    }
+
+    criarCliente(dados){
+        //criar funções de verificar cpf e email e chamar aqui
+        return this.cliente.create(dados)
+        .then(resultado => resultado)
+        .catch(erro => erro); 
+        
+    }
+
 }
 
-
-
-
+module.exports = ControladorCliente;
 
 
 

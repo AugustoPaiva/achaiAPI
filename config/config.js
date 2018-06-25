@@ -1,7 +1,7 @@
 const env = require('./env.js');
-
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize(env.database,env.username,env.password,{
+
+const conexao = new Sequelize(env.database,env.username,env.password,{
     host: env.host,
     dialect: env.dialect,
     operatorsAliases: false,
@@ -19,8 +19,8 @@ const sequelize = new Sequelize(env.database,env.username,env.password,{
 const db = {};
 
 db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db.conexao = conexao;
 
-db.usuario = require('../api/modelos/usuario')(sequelize,Sequelize);
-db.cliente = require('../api/modelos/cliente')(sequelize,Sequelize);
+db.usuario = require('../api/modelos/usuario')(conexao,Sequelize);
+db.cliente = require('../api/modelos/cliente')(conexao,Sequelize);
 module.exports = db;
