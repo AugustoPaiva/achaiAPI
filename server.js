@@ -17,8 +17,8 @@ app.use(bodyParser.json())
 
 const db = require('./config/config.js');
 
-db.sequelize.sync({force: true}).then(() => {
-    console.log('Drop and Resync with { force: true }');
+db.sequelize.sync({force: false}).then(() => {
+    console.log('Drop and Resync with { force: false }');
   });
    
   require('./api/rotas/rotasUsuario.js')(app);

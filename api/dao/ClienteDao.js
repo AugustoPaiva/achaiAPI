@@ -14,6 +14,14 @@ class ControladorCliente{
         .then(resultado => resultado)
         .catch(erro => erro); 
     }
+
+    criarCliente(dados){
+        //criar funções de verificar cpf e email e chamar aqui
+        return this.cliente.create(dados)
+        .then(resultado => resultado)
+        .catch(erro => erro); 
+        
+    }
 }
 
 

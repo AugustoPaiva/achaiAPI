@@ -9,13 +9,13 @@ var mensagem = {
 module.exports.retornaTodosUsuarios =  function(req,res) {
     return usuarioDao.retornaTodosUsuarios()
         .then(usuarios => {
-            var userio = teste(usuarios[0].nome);
+            var userio = teste(usuarios);
             res.send(userio);
     });
 };
 
 function teste(variavel){
-    if(variavel == "ndsdome"){
+    if(variavel != "ndsdome"){
         return "true baby";
     }
 
