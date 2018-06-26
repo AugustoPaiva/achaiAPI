@@ -1,18 +1,42 @@
-const express = require('express');
-const router = express.Router();
+const ControladorEntregador = require('../controladores/controladorEntregador');
+const ControladorUsuario = require('../controladores/controladorUsuario')
 
-const database = require('../queries/workerQueries');
+module.exports = function(app){
+    const controladorEntregador = new ControladorEntregador();
+    const controladorUsuario = new ControladorUsuario();
 
+    app.get('/entregadores', (req,res) => {
+        controladorEntregador.retornaTodosEntregadores()
+        .then((resposta) => {
+            res.status(200).send(resposta)
+        });
+    });
 
+    app.get('/entregadores/:id',(req,res) => {
+        controladorEntregador.EntregadoresPorId(req.params)
+        .then( (resposta) => {
+            res.status(200).send(resposta)
+        });
+    });
+    
 
-router.get('/workers', database.getAllWorkers); //pega todos
-router.get('/workers/:id', database.getWorkerbyId); //pega pelo id
-router.post('/workers',database.createWorker); //insere
+    app.post('/entregadores', (req,res) => {
+        let usuario = {nome:req.body.nome,email:req.body.email,cpf:req.body.cpf,senha:req.body.senha}
+        let entregador = {cnh:req.body.cnh}
+        controladorUsuario.criarUsuario(usuario)
+            .then(usuario => {
+                entregador.id_usuario = usuario.id;
+                controladorEntregador.criarEntregador(entregador)
+                .then((entregador) => {
+                    let resultado = JSON.parse(JSON.stringify(usuario));;
+                    resultado.id_entregador = entregador.id;
+                    resultado.cnh = entregador.cnh;
+                    resultado.nota = entregador.nota;
+                    res.json(resultado);
+                })
+            }).catch( error => {
+                console.log(error);
+            });   
+    });
 
-/*
-PRA CRIAR ENTREGADOR, MANDAR PELO BODY:
-{ "user_id" : X, "nota" : null,"cnh" : "XXXXXXX"}
-(CNH duplicada retorna erro)
-*/
-
-module.exports = router;
+}
