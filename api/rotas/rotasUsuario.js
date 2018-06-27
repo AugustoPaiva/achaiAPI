@@ -27,7 +27,11 @@ module.exports = function(app){
     app.post('/login', (req,res) => {
         controladorUsuario.login(req.body)
         .then(resposta => {
-            res.send(resposta)
+            if (resposta == null){
+                res.status(400).send({status:'erro',dados:resposta,mensagem:"Informações incorretas"});
+                return;
+            }
+            res.status(200).send({status:'sucesso',dados:resposta,mensagem:"Usuário logado"});
         });
     });
 

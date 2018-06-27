@@ -1,9 +1,9 @@
 module.exports = (sequelize,Sequelize) => {
     const Clientes = sequelize.define('clientes',{
         id_usuario:{
-            type: Sequelize.STRING,
+            type: Sequelize.INTEGER,
             references:{
-                model:'usuario',
+                model:'usuarios',
                 key: 'id'
             }
         }

@@ -22,16 +22,18 @@ module.exports = function(app){
 
     app.post('/clientes', (req,res) => {
         controladorUsuario.criarUsuario(req.body)
-            .then(usuario => {
-                controladorCliente.criarCliente({id_usuario:usuario.id})
-                .then((cliente) => {
-                    let resultado = JSON.parse(JSON.stringify(usuario));
-                    resultado.id_cliente = cliente.id;
-                    res.json(resultado);
-                })
-            }).catch( error => {
-                console.log(error);
-            });   
+        .then(usuario => {
+            if (usuario.status == 'erro'){
+                res.status(400).send(usuario);
+                return;
+            }
+            controladorCliente.criarCliente({id_usuario:usuario.id})
+            .then((cliente) => {
+                let resultado = JSON.parse(JSON.stringify(usuario));
+                resultado.id_cliente = cliente.id;
+                res.status(201).json(resultado);
+            })
+        });
     });
 
 }
