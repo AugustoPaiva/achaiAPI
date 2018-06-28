@@ -19,24 +19,10 @@ module.exports = function(app){
         });
     });
     
-
-    app.post('/entregadores', (req,res) => {
-        let usuario = {nome:req.body.nome,email:req.body.email,cpf:req.body.cpf,senha:req.body.senha}
-        let entregador = {cnh:req.body.cnh}
-        controladorUsuario.criarUsuario(usuario)
-            .then(usuario => {
-                entregador.id_usuario = usuario.id;
-                controladorEntregador.criarEntregador(entregador)
-                .then((entregador) => {
-                    let resultado = JSON.parse(JSON.stringify(usuario));;
-                    resultado.id_entregador = entregador.id;
-                    resultado.cnh = entregador.cnh;
-                    resultado.nota = entregador.nota;
-                    res.json(resultado);
-                })
-            }).catch( error => {
-                console.log(error);
-            });   
+    app.post('/entregadores',(req,res)=>{
+        controladorEntregador.criarEntregador(req.body)
+        .then (resposta => {
+            res.status(200).send(resposta);
+        });    
     });
-
 }

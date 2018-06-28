@@ -18,16 +18,28 @@ class ControladorCliente{
     }
 
     criarCliente(dados){
-        //criar funções de verificar cpf e email e chamar aqui
-        return this.cliente.create(dados)
-        .then(resultado => resultado)
-        .catch(erro => erro); 
-        
+        let usuario = modelos.usuario;
+        return modelos.conexao.transaction( transacao => {
+            return usuario.create(dados,{transaction:transacao})
+            .then(usuario => {
+                let resultado = JSON.parse(JSON.stringify(usuario))
+                return this.cliente.create({id_usuario:usuario.id},{transaction:transacao})
+                .then(cliente => {
+                    resultado.id_cliente = cliente.id;
+                    return resultado;
+                });
+            })
+            .catch(erro => {
+                console.log(erro);
+                return {status:"erro",mensagem:"informações já cadastradas"}
+            });;
+        });
     }
-
 }
 
 module.exports = ControladorCliente;
+
+
 
 
 

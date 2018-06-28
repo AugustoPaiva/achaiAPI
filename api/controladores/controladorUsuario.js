@@ -18,40 +18,20 @@ class ControladorUsuario{
         .catch(erro => erro); 
     }
 
-    criarUsuario(dados){
-        return this.verificarCPF(dados.cpf)
-        .then( cpf => {
-            if (cpf) return {status:"erro",mensagem:"CPF já cadastrado"}
-            return this.verificarEmail(dados.email)
-            .then(email => {
-                if (email) return {status:"erro",mensagem:"Email já cadastrado"}
-                return this.usuario.create(dados)
-                .then(resultado => resultado)
-                })
-        });
+    criarUsuario(dados,transaction){
+        return this.usuario.create(dados)
+        .then(resultado => resultado)
+        .catch(erro => erro);s
     }
 
     verificarCPF(cpf){
         return this.usuario.findOne({where:{cpf:cpf}})
-        .then(resultado => {
-            if (resultado == null){
-                return false;
-            } else {
-                return true;
-            }
-        });
+        .then(resultado => resultado);
     }
 
     verificarEmail(email){
         return this.usuario.findOne({where:{email:email}})
-        .then(resultado => {
-            return resultado;
-            /*if (resultado == null){
-                return false;
-            } else {
-                return true;
-            }*/
-        });
+        .then(resultado => resultado);
     }
 
     login(login){
