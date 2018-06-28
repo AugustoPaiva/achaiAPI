@@ -24,4 +24,5 @@ db.conexao = conexao;
 db.usuario = require('../api/modelos/usuario')(conexao,Sequelize);
 db.cliente = require('../api/modelos/cliente')(conexao,Sequelize);
 db.entregador = require('../api/modelos/entregador')(conexao,Sequelize);
+db.produto = require('../api/modelos/produto')(conexao,Sequelize);
 module.exports = db;

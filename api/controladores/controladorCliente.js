@@ -3,7 +3,6 @@ const modelos = require('../../config/config.js');
 class ControladorCliente{
     constructor(){
         this.cliente = modelos.cliente;
-    
     }
 
     retornaTodosClientes(){

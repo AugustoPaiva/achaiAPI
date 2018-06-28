@@ -7,7 +7,7 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.STRING
         },
         imagem:{
-            type: sequelize.BLOP
+            type: Sequelize.BLOB
         },
         codBarras:{
             type: Sequelize.STRING
