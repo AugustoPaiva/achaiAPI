@@ -5,8 +5,9 @@ class ControladorProdutos{
         this.produto = db.produto;
     }
 
-    retornarProdutos(nome){
-        return this.produto.findOne({where:nome})
+    retornarProdutos(dado){
+        //console.log("teste");
+        return this.produto.findAll({where: dado.nome})
         .then(resultado => resultado)
         .catch(erro => erro); 
     }

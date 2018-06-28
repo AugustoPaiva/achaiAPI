@@ -4,11 +4,15 @@ module.exports = function(app){
     const controladorProduto = new ControladorProduto();
 
 
-    app.get('/produtos', (req,res) => {
-        controladorProdutos.retornaProdutos(req.body)
-        .then((resposta) => {
-            res.status(200).send(resposta)
-        });
+    app.post('/produtos', (req,res) => {
+        res.status(400).send({status:'ok'});
+        //controladorProdutos.retornaProdutos(req.body)
+        //.then((resposta) => {
+        //   if(resposta == null){
+        //        res.status(400).send({status:'erro',dados:resposta,mensagem:'Produto nao encontrado.'})
+        //    }
+        //    res.status(200).send(resposta)
+        //});
     });
 
 }

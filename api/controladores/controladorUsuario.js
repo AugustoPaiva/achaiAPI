@@ -12,6 +12,7 @@ class ControladorUsuario{
     }
 
     usuarioPorId(parametros){
+        
         return this.usuario.findOne({where:parametros})
         .then(resultado => resultado)
         .catch(erro => erro); 
