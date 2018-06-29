@@ -34,16 +34,13 @@ class ControladorEntregador{
                     resultado.nota = entregador.nota;
                     return resultado;
                 },{transaction:transacao});
-            },{transaction:transacao});
+            },{transaction:transacao})
         })
         .then( retorno => retorno)
         .catch( erro => {
             let campo = erro.errors[0].path;
             return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
         });
-        
-
-        
     }
 
     

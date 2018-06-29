@@ -1,5 +1,4 @@
 const db = require('../../config/config.js');
-const criptografia = require("bcrypt");
 
 class ControladorUsuario{
     constructor(){
@@ -20,11 +19,12 @@ class ControladorUsuario{
     }
 
     criarUsuario(dados,transacao){
-        var senhacriptografada = criptografia.hashSync(dados.senha,criptografia.genSaltSync());
-        dados.senha = senhacriptografada;
         return this.usuario.create(dados,transacao)
         .then(resultado => resultado)
-        .catch(erro => erro);s
+        .catch(erro => {
+            throw erro
+        });
+            
     }
 
     verificarCPF(cpf){
@@ -38,9 +38,6 @@ class ControladorUsuario{
     }
 
     login(login){
-        var senhacriptografada = criptografia.hashSync(login.senha,criptografia.genSaltSync());
-        console.log(senhacriptografada);
-        login.senha = senhacriptografada;
         return this.usuario.findOne({where:login})
         .then(resultados => resultados)
         .catch(erro => erro);
