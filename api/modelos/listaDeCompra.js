@@ -4,8 +4,7 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.STRING
         },
         id_cliente: {
-            type: Sequelize.STRING,
-            
+            type: Sequelize.INTEGER
         }
     });
     return ListaDeCompra;
