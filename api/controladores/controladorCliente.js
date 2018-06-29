@@ -1,5 +1,5 @@
 const modelos = require('../../config/config.js');
-
+const ControladorUsuario = require('../controladores/controladorUsuario');
 class ControladorCliente{
     constructor(){
         this.cliente = modelos.cliente;
@@ -32,6 +32,7 @@ class ControladorCliente{
         })
         .then(retorno => retorno)
         .catch( erro => {
+            console.log(erro)
             let campo = erro.errors[0].path;
             return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
         });
@@ -39,73 +40,3 @@ class ControladorCliente{
 }
 
 module.exports = ControladorCliente;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-module.exports.criarCliente =  function(req,res) {
-    idUsuario = 0
-    var usuario = {
-        "nome" :req.nome,
-        "email":req.email,
-        "cpf"  :req.cpf,
-        "senha":req.senha
-        
-    }
-
-    usuarioDao.criarUsuario(usuario)
-        .then(resposta => resposta/*idUsuario = resposta[0].id;);*/
-
-    /*var cliente = {
-        "id_usuario": idUsuario
-    }
-
-
-    return clienteDao.criarCliente(cliente)
-        .then(usuarios => {
-            res.send(usuarios);
-    });*/
-//};
-/*
-module.exports.criarCliente = function(novoCliente){
-    idUsuario = 0
-    var usuario = {
-        "nome" :novoCliente.nome,
-        "email":novoCliente.email,
-        "cpf"  :novoCliente.cpf,
-        "senha":novoCliente.senha
-        
-    }
-
-    usuarioDao.criarUsuario(usuario)
-        .then(resposta => {
-            idUsuario = resposta[0].id;
-        });
-
-    var cliente = {
-        "id_usuario": isUsuario
-    }
-
-    return  clienteDao.criarCliente(cliente)
-    .then(resultado =>resultado )
-    .catch(erro => erro);              
-        
-        
-    
-
-    
-} 
-*/
