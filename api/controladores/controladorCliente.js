@@ -18,9 +18,9 @@ class ControladorCliente{
     }
 
     criarCliente(dados){
-        let usuario = modelos.usuario;
+        const controladorUsuario = new ControladorUsuario();
         return modelos.conexao.transaction( transacao => {
-            return usuario.create(dados,{transaction:transacao})
+            return controladorUsuario.criarUsuario(dados,{transaction:transacao})
             .then(usuario => {
                 let resultado = JSON.parse(JSON.stringify(usuario))
                 return this.cliente.create({id_usuario:usuario.id},{transaction:transacao})
@@ -28,11 +28,12 @@ class ControladorCliente{
                     resultado.id_cliente = cliente.id;
                     return resultado;
                 });
-            })
-            .catch(erro => {
-                console.log(erro);
-                return {status:"erro",mensagem:"informações já cadastradas"}
-            });;
+            });
+        })
+        .then(retorno => retorno)
+        .catch( erro => {
+            let campo = erro.errors[0].path;
+            return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
         });
     }
 }

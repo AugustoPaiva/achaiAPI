@@ -1,9 +1,7 @@
 const ControladorEntregador = require('../controladores/controladorEntregador');
-const ControladorUsuario = require('../controladores/controladorUsuario')
 
 module.exports = function(app){
     const controladorEntregador = new ControladorEntregador();
-    const controladorUsuario = new ControladorUsuario();
 
     app.get('/entregadores', (req,res) => {
         controladorEntregador.retornaTodosEntregadores()

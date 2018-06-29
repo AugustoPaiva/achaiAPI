@@ -18,10 +18,13 @@ class ControladorUsuario{
         .catch(erro => erro); 
     }
 
-    criarUsuario(dados,transaction){
-        return this.usuario.create(dados)
+    criarUsuario(dados,transacao){
+        return this.usuario.create(dados,transacao)
         .then(resultado => resultado)
-        .catch(erro => erro);s
+        .catch(erro => {
+            throw erro
+        });
+            
     }
 
     verificarCPF(cpf){
