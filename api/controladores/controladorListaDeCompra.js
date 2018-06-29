@@ -6,12 +6,12 @@ class ControladorListaDeCompra{
     }
 
     retornarListasDeCompra(parametros){
-        return this.listaDeCompra.findOne({where: parametros})
+        return this.listaDeCompra.findAll({where: parametros})
         .then(resultado => resultado)
         .catch(erro => erro);
     }
     retornarLista(dado){
-        return this.listaDeCompra.sequelize.query('SELECT produto FROM listaProduto WHERE id_cliente = ' + dado)
+        return this.listaDeCompra.sequelize.query('SELECT nome FROM listaProduto WHERE id = ' + dado.id)
         .then(resultado => resultado)
         .catch(erro => erro);
     }

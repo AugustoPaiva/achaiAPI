@@ -1,5 +1,7 @@
 const modelos = require('../../config/config.js');
 const ControladorUsuario = require('../controladores/controladorUsuario');
+
+
 class ControladorCliente{
     constructor(){
         this.cliente = modelos.cliente;
@@ -32,9 +34,11 @@ class ControladorCliente{
         })
         .then(retorno => retorno)
         .catch( erro => {
-            console.log(erro)
-            let campo = erro.errors[0].path;
-            return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+            if (erro.errors[0].path){
+                let campo = erro.errors[0].path;
+                return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+            }
+
         });
     }
 }
