@@ -6,7 +6,7 @@ const conexao = new Sequelize(env.database,env.username,env.password,{
     dialect: env.dialect,
     operatorsAliases: false,
     pool:{
-        max: env.max,
+        max: env.pool.max,
         min: env.pool.min,
         acquire: env.pool.acquire,
         idle: env.pool.idle

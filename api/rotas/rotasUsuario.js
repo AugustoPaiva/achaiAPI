@@ -34,8 +34,5 @@ module.exports = function(app){
             res.status(200).send({status:'sucesso',dados:resposta,mensagem:"Usuário logado"});
         });
     });
-
-    //app.post('/usuarios/get', controladorUsuario.usuarioPorEmail);
     
 }
-//INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`) VALUES (1, 'ndsdome', 'sdsd', 'fdfdf', 'fgfgf');

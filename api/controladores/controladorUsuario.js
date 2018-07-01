@@ -1,4 +1,5 @@
 const db = require('../../config/config.js');
+const crypto = require("crypto");
 
 class ControladorUsuario{
     constructor(){
@@ -12,19 +13,18 @@ class ControladorUsuario{
     }
 
     usuarioPorId(parametros){
-        
         return this.usuario.findOne({where:parametros})
         .then(resultado => resultado)
         .catch(erro => erro); 
     }
 
     criarUsuario(dados,transacao){
+        dados.senha = this.criptografar(dados.senha);
         return this.usuario.create(dados,transacao)
         .then(resultado => resultado)
         .catch(erro => {
-            throw erro
-        });
-            
+            throw erro;
+        });   
     }
 
     verificarCPF(cpf){
@@ -38,9 +38,16 @@ class ControladorUsuario{
     }
 
     login(login){
+        login.senha = this.criptografar(login.senha);
         return this.usuario.findOne({where:login})
         .then(resultados => resultados)
         .catch(erro => erro);
+    }
+
+    criptografar(senha){
+        var criptografia = crypto.createCipher("aes256","chaves");
+        criptografia.update(senha,'utf8','hex');
+        return criptografia.final("hex");
     }
 }
 
