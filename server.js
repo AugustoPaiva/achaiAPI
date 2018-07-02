@@ -15,6 +15,7 @@ require('./api/rotas/rotasCliente.js')(app);
 require('./api/rotas/rotasEntregador')(app);
 require('./api/rotas/rotasProdutos')(app);
 require('./api/rotas/rotasListaDeCompra')(app);
+require('./api/rotas/rotasEndereco')(app);
    
 // Create a Server
 var server = app.listen(3000, function () {
