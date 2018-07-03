@@ -13,10 +13,28 @@ class ControladorCliente{
         .catch(erro => erro);
     }
 
-    clientePorId(parametros){
-        return this.cliente.findOne({where:parametros})
+    clientePorId(id){ 
+        return this.cliente.findOne({where:id})
         .then(resultado => resultado)
         .catch(erro => erro); 
+    }
+
+    editarCliente(dados){
+        return this.entregadorPorId({id:dados.id})
+        .then(cliente => {
+            return cliente.updateAttributes(dados)
+            .then(cliente => cliente) 
+            .catch(erro => {
+                let campo = erro.errors[0].path;
+                return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+            }) 
+        })
+    }
+
+    clientePorUsuario(id_usuario){
+        return this.cliente.findOne({where:id_usuario})
+        .then(resultado => resultado)
+        .catch(erro => erro);
     }
 
     criarCliente(dados){
@@ -44,3 +62,26 @@ class ControladorCliente{
 }
 
 module.exports = ControladorCliente;
+
+
+/*
+    editarUsuarioCliente(dados){
+        const controladorUsuario = new ControladorUsuario();
+        return modelos.conexao.transaction(transacao => {
+            return controladorUsuario.editarUsuario(dados, {transaction: transacao})
+            .then(usuario => {
+                return this.clientePorUsuario({id_usuario:usuario.id})
+                .then(cliente => {
+                    let resultado = JSON.parse(JSON.stringify(usuario));
+                    resultado.cliente_id = cliente.id;
+                    return resultado;s
+                });
+            });
+        })
+        .then(retorno => retorno)
+        .catch( erro => {
+            let campo = erro.errors[0].path;
+            return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+        });
+    }
+*/

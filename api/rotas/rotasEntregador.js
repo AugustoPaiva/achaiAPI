@@ -23,4 +23,11 @@ module.exports = function(app){
             res.status(200).send(resposta);
         });    
     });
+
+    app.put('/entregadores', (req,res) => {
+        controladorEntregador.editarUsuarioEntregador(req.body)
+        .then ( resposta => {
+            res.send(resposta);
+        })
+    });
 }

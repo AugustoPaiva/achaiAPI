@@ -26,6 +26,15 @@ module.exports = function(app){
         });
     });
 
+    app.put('/clientes', (req,res) => {
+        controladorCliente.editarUsuarioCliente(req.body)
+        .then ( resposta => {
+            res.send(resposta);
+        })
+    });
+
+    
+
 }
 
 

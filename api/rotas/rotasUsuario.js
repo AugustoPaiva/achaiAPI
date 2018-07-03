@@ -16,6 +16,13 @@ module.exports = function(app){
             res.status(200).send(resposta)
         });
     });
+
+    app.put('/usuarios', (req,res) => {
+        controladorUsuario.editarUsuario(req.body)
+        .then ( resposta => {
+            res.send(resposta);
+        })
+    });
     
     app.post('/usuarios', (req,res) => {
         controladorUsuario.criarUsuario(req.body)
@@ -34,5 +41,6 @@ module.exports = function(app){
             res.status(200).send({status:'sucesso',dados:resposta,mensagem:"Usuário logado"});
         });
     });
+    
     
 }

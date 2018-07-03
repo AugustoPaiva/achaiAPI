@@ -18,6 +18,18 @@ class ControladorEntregador{
         .catch(erro => erro); 
     }
 
+    editarEntregador(dados){
+        return this.entregadorPorId({id:dados.id})
+        .then(entregador => {
+            return entregador.updateAttributes(dados)
+            .then(entregador => entregador)  
+            .catch(erro => {
+                let campo = erro.errors[0].path;
+                return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+            })
+        })
+    }
+
     criarEntregador(dados){
         const controladorUsuario = new ControladorUsuario();
         let novousuario = {nome:dados.nome,cpf:dados.cpf,email:dados.email,senha: dados.senha};
@@ -25,14 +37,10 @@ class ControladorEntregador{
         return modelos.conexao.transaction( transacao => {
             return controladorUsuario.criarUsuario(novousuario,{transaction:transacao})
             .then(usuario => {
-                let resultado = JSON.parse(JSON.stringify(usuario))
-                entregador.id_usuario = resultado.id;
+                entregador.id_usuario = usuario.id;
                 return this.entregador.create(entregador,{transaction:transacao})
                 .then(entregador => {
-                    resultado.id_entregador = entregador.id;
-                    resultado.cnh = entregador.cnh;
-                    resultado.nota = entregador.nota;
-                    return resultado;
+                    this.retornar(usuario,entregador);
                 },{transaction:transacao});
             },{transaction:transacao})
         })
@@ -43,8 +51,41 @@ class ControladorEntregador{
         });
     }
 
-    
+    retornar(usuario,entregador){
+        let resultado = JSON.parse(JSON.stringify(usuario));
+        resultado.id_entregador = entregador.id;
+        resultado.nota = entregador.nota;
+        resultado.cnh = entregador.cnh;
+
+        return resultado;
+    }
 }
 
 module.exports = ControladorEntregador;
 
+
+/*
+    entregadorPorUsuario(id_usuario){
+        return this.entregador.findOne({where:id_usuario})
+        .then(resultado => resultado)
+        .catch(erro => erro);
+    }
+
+    editarUsuarioEntregador(dados){
+        const controladorUsuario = new ControladorUsuario();
+        return modelos.conexao.transaction(transacao => {
+            return controladorUsuario.editarUsuario(dados, {transaction: transacao})
+            .then(usuario => {
+                return this.entregadorPorUsuario({id_usuario:usuario.id})
+                .then(entregador => {
+                    return this.retornar(usuario,entregador);
+                });
+            });
+        })
+        .then(retorno => retorno)
+        .catch( erro => { 
+            let campo = erro.errors[0].path;
+            return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+        });
+    }
+*/

@@ -27,6 +27,19 @@ class ControladorUsuario{
         });   
     }
 
+    editarUsuario(dados){
+        return this.usuarioPorId({id:dados.id})
+        .then(usuario => {
+            return usuario.updateAttributes(dados)
+            .then(usuario => usuario)
+            .catch(erro => {
+                let campo = erro.errors[0].path;
+                return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+            })
+        })
+    }
+
+
     verificarCPF(cpf){
         return this.usuario.findOne({where:{cpf:cpf}})
         .then(resultado => resultado);
