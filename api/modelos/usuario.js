@@ -1,4 +1,3 @@
-
 module.exports = (sequelize,Sequelize) => {
     let Usuario = sequelize.define('usuarios',{
         nome:{
@@ -14,8 +13,10 @@ module.exports = (sequelize,Sequelize) => {
         },
         senha: {
             type: Sequelize.STRING
-
         },
+        foto:{
+            type: Sequelize.BLOB
+        }
     });
     return Usuario;
 }

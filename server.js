@@ -5,7 +5,6 @@ const db = require('./config/config.js');
 
 
 app.use(bodyParser.json());
-app.set('secret','segredin');
 db.conexao.sync({force: false}).then(() => {
     console.log('Drop and Resync with { force: false }');
 });
