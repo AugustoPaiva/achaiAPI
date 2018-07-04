@@ -2,10 +2,12 @@ module.exports = (sequelize,Sequelize) => {
     let Entregador = sequelize.define('entregadores',{
         id_usuario:{
             type: Sequelize.INTEGER,
+            allowNull: false,
             references:{
                 model:'usuarios',
                 key: 'id'
             }
+            
         },
         cnh: {
             type: Sequelize.STRING,

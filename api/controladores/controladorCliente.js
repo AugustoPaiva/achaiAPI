@@ -52,11 +52,10 @@ class ControladorCliente{
         })
         .then(retorno => retorno)
         .catch( erro => {
-            if (erro.errors[0].path){
+            if (erro.errors){
                 let campo = erro.errors[0].path;
                 return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
-            }
-
+            } return erro;
         });
     }
 }
