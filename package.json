@@ -1,9 +1,10 @@
 {
   "name": "achaiapi",
   "version": "1.0.0",
-  "description": "Um REST API para o projeto do Achai.",
+  "description": "Rest API do projeto Achaí",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,8 +25,14 @@
   },
   "homepage": "https://github.com/AugustoPaiva/achaiAPI#readme",
   "dependencies": {
+    "bcrypt": "^2.0.1",
     "express": "^4.16.3",
+    "heroku": "^7.5.6",
+    "jsonwebtoken": "^8.3.0",
     "mysql": "^2.15.0",
-    "restify": "^7.2.1"
+    "mysql2": "^1.5.3",
+    "restify": "^7.2.1",
+    "sequelize": "^4.38.0",
+    "sequelizer": "^1.1.3"
   }
 }
