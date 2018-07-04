@@ -40,7 +40,7 @@ class ControladorEntregador{
                 entregador.id_usuario = usuario.id;
                 return this.entregador.create(entregador,{transaction:transacao})
                 .then(entregador => {
-                    this.retornar(usuario,entregador);
+                    return this.retornar(usuario,entregador);
                 },{transaction:transacao});
             },{transaction:transacao})
         })

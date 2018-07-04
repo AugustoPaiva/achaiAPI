@@ -28,6 +28,7 @@ class ControladorUsuario{
     }
 
     editarUsuario(dados){
+        dados.senha = this.criptografar(dados.senha);
         return this.usuarioPorId({id:dados.id})
         .then(usuario => {
             return usuario.updateAttributes(dados)

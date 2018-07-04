@@ -11,7 +11,7 @@ module.exports = function(app){
     });
 
     app.get('/entregadores/:id',(req,res) => {
-        controladorEntregador.EntregadoresPorId(req.params)
+        controladorEntregador.EntregadorPorId(req.params)
         .then( (resposta) => {
             res.status(200).send(resposta)
         });

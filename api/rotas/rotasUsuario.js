@@ -18,6 +18,7 @@ module.exports = function(app){
     });
 
     app.put('/usuarios', (req,res) => {
+
         controladorUsuario.editarUsuario(req.body)
         .then ( resposta => {
             res.send(resposta);
