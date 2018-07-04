@@ -1,5 +1,5 @@
 module.exports = (sequelize,Sequelize) => {
-    const Endereco = sequelize.define('endereco',{
+    const Endereco = sequelize.define('enderecos',{
         rua:{
             type: Sequelize.STRING
         },
