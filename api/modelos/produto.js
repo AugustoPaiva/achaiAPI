@@ -12,6 +12,8 @@ module.exports = (sequelize,Sequelize) => {
         codBarras:{
             type: Sequelize.STRING
         }
+    },{
+        tableName: 'produtos'
     });
     return Produtos;
 }

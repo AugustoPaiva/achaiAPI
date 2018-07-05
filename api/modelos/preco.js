@@ -22,6 +22,8 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.FLOAT,
             allowNull: false
         }
+    },{
+        tableName: 'precos'
     });
     return Preco;
 }

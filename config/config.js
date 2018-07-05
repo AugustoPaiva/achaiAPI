@@ -29,4 +29,5 @@ db.listaDeCompra = require('../api/modelos/listaDeCompra')(conexao,Sequelize);
 db.endereco = require('../api/modelos/endereco')(conexao,Sequelize);
 db.supermercado = require('../api/modelos/supermercado')(conexao,Sequelize);
 db.preco = require('../api/modelos/preco')(conexao,Sequelize);
+db.produtos_lista = require('../api/modelos/produtos_lista')(conexao,Sequelize);
 module.exports = db;

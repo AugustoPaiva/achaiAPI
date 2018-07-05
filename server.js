@@ -5,7 +5,7 @@ const db = require('./config/config.js');
 
 
 app.use(bodyParser.json());
-db.conexao.sync({force: true}).then(() => {
+db.conexao.sync({force: false}).then(() => {
     console.log('Drop and Resync with { force: false }');
 });
 

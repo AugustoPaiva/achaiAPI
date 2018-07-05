@@ -10,6 +10,8 @@ module.exports = (sequelize,Sequelize) => {
             }
 
         }
+    },{
+        tableName: 'clientes'
     });
     return Clientes;
 }

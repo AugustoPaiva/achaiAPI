@@ -1,9 +1,10 @@
 
-const db = require('../../config/config.js');
+const modelos = require('../../config/config.js');
 
 class ControladorListaDeCompra{
     constructor(){
-        this.listaDeCompra = db.listaDeCompra;
+        this.listaDeCompra = modelos.listaDeCompra;
+        this.produtos_lista = modelos.produtos_lista;
     }
 
     listasPorCliente(parametros){
@@ -18,21 +19,46 @@ class ControladorListaDeCompra{
     }
 
     criarLista(dados){
-        return this.consultarLista(dados)
-        .then( resultado => {
-            if (resultado == null){
-                return this.listaDeCompra.create(dados)
-                .then(resultado => resultado)
-                .catch(erro => {
-                    throw erro;
-                });  
-            }
+        //{nomeLista,lista,id_usuario}
+        return modelos.conexao.transaction(transacao => {
+            return this.consultarLista({nome:dados.nomeLista,id_cliente:dados.id_usuario})
+            .then(resultado => {
+                if (resultado == false){
+                    return this.listaDeCompra.create({nome:dados.nomeLista,id_cliente:dados.id_usuario})
+                    .then(resultado => { 
+                        dados.lista.forEach(element => {
+                            this.produtos_lista.create(
+                                {id_produto:element.id,
+                                    id_lista:resultado.id,
+                                    quantidade:element.quantidade
+                                }
+                            ) 
+                        });
+                        return "Lista salva com sucesso"
+                    })
+                    .catch(erro => {
+                        throw erro;
+                    });  
+                } else {
+                    return "Já existe uma lista com este nome"    
+                }
+
+            })
+            
         })
     }
 
+    
+
     consultarLista(dados){
         return this.listaDeCompra.findOne({where:dados})
-        .then(resultado => resultado);
+        .then(resultado => {
+            if (resultado == null) {
+                return false;
+            } else{
+                return true;
+            }
+        });
     }
 }
 

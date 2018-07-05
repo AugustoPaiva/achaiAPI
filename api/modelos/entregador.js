@@ -18,6 +18,8 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.FLOAT,
             defaultValue: 0
         },
+    },{
+        tableName: 'entregadores'
     });
     return Entregador;
 }

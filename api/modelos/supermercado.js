@@ -11,6 +11,8 @@ module.exports = (sequelize,Sequelize) => {
                 key: 'id'
             }
         },
+    },{
+        tableName: 'supermercados'
     });
     return Supermercado;
 }

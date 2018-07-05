@@ -28,6 +28,8 @@ module.exports = (sequelize,Sequelize) => {
                 key: 'id'
             }
         }
+    },{
+        tableName: 'usuarios'
     });
     return Usuario;
 }

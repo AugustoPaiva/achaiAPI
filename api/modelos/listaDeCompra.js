@@ -1,12 +1,13 @@
 module.exports = (sequelize,Sequelize) => {
-    let ListaDeCompra = sequelize.define('listasDeCompra',{
+    let ListasDeCompra = sequelize.define('listasDeCompra',{
         nome:{
-            type: Sequelize.STRING
-            
+            type: Sequelize.STRING  
         },
         id_cliente: {
             type: Sequelize.INTEGER
         }
+    },{
+        tableName: 'listasDeCompra'
     });
-    return ListaDeCompra;
+    return ListasDeCompra;
 }

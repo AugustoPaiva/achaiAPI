@@ -6,8 +6,11 @@ module.exports = (sequelize,Sequelize) => {
         numero:{
             type: Sequelize.STRING
         },
+        bairro:{
+            type: Sequelize.STRING
+        },
         complemento:{
-            type:Sequelize.STRING
+            type: Sequelize.STRING
         },
         latitude:{
             type: Sequelize.STRING
@@ -15,6 +18,8 @@ module.exports = (sequelize,Sequelize) => {
         longitude:{
             type: Sequelize.STRING
         }
+    },{
+        tableName: 'enderecos'
     });
     return Endereco;
 
