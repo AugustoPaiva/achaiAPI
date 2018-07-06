@@ -1,35 +1,24 @@
 module.exports = (sequelize,Sequelize) => {
     let Usuario = sequelize.define('usuarios',{
         nome:{
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING
         },
         cpf: {
             type: Sequelize.STRING,
-            unique:true,
-            allowNull: false
+            unique:true
         },
         email: {
             type: Sequelize.STRING,
-            unique:true,
-            allowNull: false
+            unique:true
         },
         senha: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING
         },
+        /*
         foto:{
             type: Sequelize.BLOB
-        },
-        id_endereco:{
-            type: Sequelize.INTEGER,
-            references:{
-                model:'enderecos',
-                key: 'id'
-            }
         }
-    },{
-        tableName: 'usuarios'
+        */
     });
     return Usuario;
 }

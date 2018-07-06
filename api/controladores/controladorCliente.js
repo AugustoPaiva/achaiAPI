@@ -23,7 +23,9 @@ class ControladorCliente{
         return this.entregadorPorId({id:dados.id})
         .then(cliente => {
             return cliente.updateAttributes(dados)
-            .then(cliente => cliente) 
+            .then(cliente => {
+                return {status:"sucesso",dados:cliente,mensagem:"Dados atualizados"}
+            }) 
             .catch(erro => {
                 let campo = erro.errors[0].path;
                 return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
@@ -46,16 +48,14 @@ class ControladorCliente{
                 return this.cliente.create({id_usuario:usuario.id},{transaction:transacao})
                 .then(cliente => {
                     resultado.id_cliente = cliente.id;
-                    return resultado;
-                });
+                    return {status:"sucesso",dados:resultado,mensagem:"Cadastrado com sucesso"}                    
+                })
             });
         })
         .then(retorno => retorno)
         .catch( erro => {
-            if (erro.errors){
-                let campo = erro.errors[0].path;
-                return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
-            } return erro;
+            let campo = erro.errors[0].path;
+            return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
         });
     }
 }
@@ -84,3 +84,5 @@ module.exports = ControladorCliente;
         });
     }
 */
+
+

@@ -12,6 +12,13 @@ class ControladorListaDeCompra{
         .then(resultado => resultado)
         .catch(erro => erro);
     }
+
+    listaPorId(parametros){ 
+        return this.produtos_lista.findAll({where:parametros})
+        .then(resultado => resultado)
+        .catch(erro => erro);
+    }
+    //corrigir
     retornarLista(dados){
         return this.listaDeCompra.sequelize.query('SELECT nome FROM listaProduto WHERE id = ' + dado.id)
         .then(resultado => resultado)
@@ -21,34 +28,34 @@ class ControladorListaDeCompra{
     criarLista(dados){
         //{nomeLista,lista,id_usuario}
         return modelos.conexao.transaction(transacao => {
-            return this.consultarLista({nome:dados.nomeLista,id_cliente:dados.id_usuario})
-            .then(resultado => {
-                if (resultado == false){
-                    return this.listaDeCompra.create({nome:dados.nomeLista,id_cliente:dados.id_usuario})
-                    .then(resultado => { 
-                        dados.lista.forEach(element => {
-                            this.produtos_lista.create(
-                                {id_produto:element.id,
-                                    id_lista:resultado.id,
-                                    quantidade:element.quantidade
-                                }
-                            ) 
-                        });
-                        return "Lista salva com sucesso"
+            return this.consultarLista({nome:dados.nomeLista,id_cliente:dados.id_usuario}, 
+            {transaction:transacao}).then(verificacao => {
+                if (verificacao == false){
+                    return this.listaDeCompra.create({nome:dados.nomeLista,id_cliente:dados.id_usuario},
+                    {transaction:transacao}).then(resultado => {
+                        this.preencheProdutos(dados.lista,resultado.id);
+                        return {status:"sucesso", mensagem: "Lista salva com sucesso"};
                     })
-                    .catch(erro => {
-                        throw erro;
-                    });  
-                } else {
-                    return "Já existe uma lista com este nome"    
-                }
-
-            })
-            
+                }else{
+                    throw new Error();
+                } 
+            })            
         })
+        .then(resultado => resultado)
+        .catch(erro => {
+            return {status:"erro",mensagem:"Você já possui uma lista com esse nome"};
+        });
     }
 
-    
+    preencheProdutos(lista, id_lista){
+        lista.forEach(produto =>{
+            this.produtos_lista.create({
+                id_lista:id_lista,
+                id_produto:produto.id,
+                quantidade:produto.quantidade
+            })
+        });
+    }
 
     consultarLista(dados){
         return this.listaDeCompra.findOne({where:dados})
@@ -63,3 +70,7 @@ class ControladorListaDeCompra{
 }
 
 module.exports = ControladorListaDeCompra;
+
+
+
+

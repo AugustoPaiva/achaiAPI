@@ -18,12 +18,15 @@ module.exports = function(app){
     });
 
     app.put('/usuarios', (req,res) => {
-
         controladorUsuario.editarUsuario(req.body)
         .then ( resposta => {
             res.send(resposta);
         })
     });
+
+    app.put('/teste',(req,res) => {
+        controladorUsuario.editarFoto()
+    })
     
     app.post('/usuarios', (req,res) => {
         controladorUsuario.criarUsuario(req.body)
