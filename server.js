@@ -5,6 +5,12 @@ const db = require('./config/config.js');
 
 
 app.use(bodyParser.json());
+app.use(function(req,res,next) {
+	res.header("Access-Control-Allow-Origin","*");
+	res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
 db.conexao.sync({force: false}).then(() => {
     console.log('Drop and Resync with { force: false }');
 });

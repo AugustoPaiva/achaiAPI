@@ -13,7 +13,7 @@
         acquire:30000,
         idle:10000
     }
-}*/
+}
 
 
 
@@ -32,12 +32,13 @@ const env = {
         idle:10000
     }
 }
-/*
-//Outra conexão free, funciona porém ;
+
+Outra conexão free, funciona porém ;
+*/
 const env = {
-    database: 'sql10245399',
-    username: 'sql10245399',
-    password: 'BYwiBJJAcY',
+    database: 'sql10246793',
+    username: 'sql10246793',
+    password: 'swuXDdRwgS',
     host:'sql10.freesqldatabase.com',
     dialect: 'mysql',
     pool:{
@@ -47,5 +48,5 @@ const env = {
         idle:10000
     }
 }
-*/
+
 module.exports = env;
