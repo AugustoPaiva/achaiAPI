@@ -15,7 +15,7 @@ db.conexao.sync({force: false}).then(() => {
     console.log('Drop and Resync with { force: false }');
 });
 
-require('./api/rotas/rotasUsuario.js')(app);
+require('./api/rotas/rotasUsuario.js')(app); 
 require('./api/rotas/rotasCliente.js')(app);
 require('./api/rotas/rotasEntregador')(app);
 require('./api/rotas/rotasProdutos')(app);

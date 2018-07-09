@@ -1,9 +1,10 @@
-const db = require('../../config/config.js');
+const modelos = require('../../config/config.js');
 const crypto = require("crypto");
+const ControladorEndereco = require('../controladores/controladorEndereco');
 
 class ControladorUsuario{
     constructor(){
-        this.usuario = db.usuario;
+        this.usuario = modelos.usuario;
     }
 
     retornaTodosUsuarios(){
@@ -27,17 +28,27 @@ class ControladorUsuario{
         });   
     }
 
-    editarUsuario(dados){
+    editarUsuario(id,dados){
+        const controladorEndereco = new ControladorEndereco();
         dados.senha = this.criptografar(dados.senha);
-        return this.usuarioPorId({id:dados.id})
-        .then(usuario => {
-            return usuario.updateAttributes(dados)
-            .then(usuario => usuario)
-            .catch(erro => {
-                let campo = erro.errors[0].path;
-                return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
-            })
-        })
+        return modelos.conexao.transaction( transacao => {
+            return controladorEndereco.registrarEndereco(dados.endereco)
+            .then(resultado => {
+                return this.usuario.findOne({where:id})
+                .then(usuario => {
+                    const newinfo = {nome:dados.nome,email:dados.email,senha:this.criptografar(dados.senha),endereco:resultado.id}
+                    return usuario.updateAttributes(newinfo)
+                    .then(usuario => {
+                        return usuario;
+                    })
+                    .catch(erro => {
+                        let campo = erro.errors[0].path;
+                        return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+                    })
+                })
+                
+            });
+        });
     }
 
 

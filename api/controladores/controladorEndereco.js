@@ -1,8 +1,8 @@
-const db = require('../../config/config.js');
+const modelos = require('../../config/config.js');
 
 class ControladorEndereco{
     constructor(){
-        this.endereco = db.endereco;
+        this.endereco = modelos.endereco;
     }
 
     retornaEnderecoId(dado){
@@ -13,7 +13,9 @@ class ControladorEndereco{
 
     registrarEndereco(dado){
         return this.endereco.create(dado)
-        .then(resulta => resultado)
+        .then(resultado => {
+            return resultado
+        })
         .catch(erro => erro);
     }
 }

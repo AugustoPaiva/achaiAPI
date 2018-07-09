@@ -17,8 +17,15 @@ module.exports = (sequelize,Sequelize) => {
         /*
         foto:{
             type: Sequelize.BLOB
-        }
+        },
         */
+       endereco:{
+            type: Sequelize.INTEGER,
+            references:{
+                model:'enderecos',
+                key: 'id'
+            }
+       }
     });
     return Usuario;
 }
