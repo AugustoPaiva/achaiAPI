@@ -1,5 +1,5 @@
 module.exports = (sequelize,Sequelize) => {
-    const Produtos_Listas = sequelize.define('produtos_listas',{
+    const Produtos_Listas = sequelize.define('produtos_lista',{//troquei o nome produtos_listas para produtos_lista pq em todo outro canto o lista ta no singular
         id_produto:{
             type: Sequelize.INTEGER,
             references:{

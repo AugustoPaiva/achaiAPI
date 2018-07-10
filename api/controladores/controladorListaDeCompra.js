@@ -19,8 +19,8 @@ class ControladorListaDeCompra{
         .catch(erro => erro);
     }
     //corrigir
-    retornarLista(dados){
-        return this.listaDeCompra.sequelize.query('SELECT nome FROM listaProduto WHERE id = ' + dado.id)
+    retornarLista(parametros){
+        return this.listaDeCompra.sequelize.query('SELECT P.nome, L.quantidade FROM produtos as P, produtos_lista as L WHERE P.id = L.id_produto and L.id_lista = ' + parametros + "'")//'SELECT P.nome, L.quantidade FROM produtos as P, produtos_lista as L WHERE P.id = L.id_produto and L.id_lista = ' + parametros)
         .then(resultado => resultado)
         .catch(erro => erro);
     }

@@ -12,7 +12,7 @@ module.exports = function(app){
     });
 
     //por algum motivo essa rota n pega
-    app.get('/listaDeProdutos/:id', (req, res) => {
+    app.get('/listaDeProdutos/lista/:id', (req, res) => {
         controladorListaDeCompra.retornarLista(req.params)
         .then(resposta => {
             res.send(resposta);
