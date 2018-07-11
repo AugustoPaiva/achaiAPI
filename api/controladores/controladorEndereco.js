@@ -11,6 +11,16 @@ class ControladorEndereco{
         .catch(erro => erro);
     }
 
+    editarEndereco(id,dados){
+        return this.endereco.findOne({where:{id:id}})
+        .then(endereco => {
+            return endereco.updateAttributes(dados)
+            .then(novoendereco => {
+                return novoendereco;   
+            })
+        });
+    }
+
     registrarEndereco(dado){
         return this.endereco.create(dado)
         .then(resultado => {
