@@ -16,7 +16,7 @@
 }
 
 
-
+*/
 //Conexão Hostinger, funciona até 12/07/2018
 
 const env = {
@@ -33,8 +33,9 @@ const env = {
     }
 }
 
+/*
 Outra conexão free, funciona porém ;
-*/
+
 const env = {
     database: 'sql10246793',
     username: 'sql10246793',
@@ -48,5 +49,6 @@ const env = {
         idle:10000
     }
 }
+*/
 
 module.exports = env;

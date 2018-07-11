@@ -19,6 +19,12 @@ class ControladorCliente{
         .catch(erro => erro); 
     }
 
+    clientePorUsuario(id_user){
+        return this.cliente.findOne({where:id_user})
+        .then(resultado => resultado)
+        .catch(erro => erro);
+    }
+
     editarCliente(dados){
         return this.entregadorPorId({id:dados.id})
         .then(cliente => {

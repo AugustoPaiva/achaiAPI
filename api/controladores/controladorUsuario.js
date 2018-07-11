@@ -1,6 +1,8 @@
 const modelos = require('../../config/config.js');
 const crypto = require("crypto");
 const ControladorEndereco = require('../controladores/controladorEndereco');
+const ControladorCliente = require('../controladores/controladorCliente');
+const ControladorEntregador = require('../controladores/controladorEntregador');
 
 class ControladorUsuario{
     constructor(){
@@ -65,8 +67,57 @@ class ControladorUsuario{
     login(login){
         login.senha = this.criptografar(login.senha);
         return this.usuario.findOne({where:login})
-        .then(resultados => resultados)
+        .then(retorno => {
+            let usuario = JSON.parse(JSON.stringify(retorno));
+            //usuario = this.anexarCliente(usuario);
+            usuario = this.anexarEntregador(usuario);
+            //usuario = this.anexarEndereco(usuario);
+            return usuario;
+        })
         .catch(erro => erro);
+    }
+
+    anexarEntregador(dados){
+        let controladorEntregador = new ControladorEntregador();
+        let usuario = JSON.parse(JSON.stringify(dados));
+        return controladorEntregador.entregadorPorUsuario({id_usuario:dados.id})
+        .then(entregador => {
+            if (entregador == null){
+                return usuario;
+            } else {
+                usuario.cliente = {id:entregador.id,nota:entregador.nota,cnh:entregador.cnh};
+                return usuario;
+            }
+        })
+    }
+
+    anexarCliente(dados){
+        let controladorCliente = new ControladorCliente();
+        let usuario = JSON.parse(JSON.stringify(dados));
+        return controladorCliente.clientePorUsuario({id_usuario:dados.id})
+        .then(cliente => {
+            if (cliente == null){
+                return usuario;
+            } else {
+                usuario.cliente = {id: cliente.id};
+                return usuario;
+            }
+        })
+    }
+
+    anexarEndereco(dados){
+        let controladorEndereco = new ControladorEndereco();
+        let usuario = JSON.parse(JSON.stringify(dados));
+        
+        if (usuario.endereco == 'null'){
+            return usuario;
+        } else {
+            return controladorEndereco.retornaEnderecoId({id:usuario.endereco})
+            .then(endereco => {
+                usuario.endereco = endereco;
+                return usuario;
+            })
+        }
     }
 
     criptografar(senha){

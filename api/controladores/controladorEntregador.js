@@ -18,6 +18,12 @@ class ControladorEntregador{
         .catch(erro => erro); 
     }
 
+    entregadorPorUsuario(id_usuario){
+        return this.entregador.findOne({where:id_usuario})
+        .then(resultado => resultado)
+        .catch(erro => erro);
+    }
+
     editarEntregador(dados){
         return this.entregadorPorId({id:dados.id})
         .then(entregador => {
