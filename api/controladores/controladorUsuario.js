@@ -80,20 +80,20 @@ class ControladorUsuario{
 
     login(login){
         login.senha = this.criptografar(login.senha);
-        return modelos.conexao.transaction(transacao => {
-            return this.usuario.findOne({where:login})
-            .then(retorno => {
-                let usuario = JSON.parse(JSON.stringify(retorno));
-                return this.anexarTipo(usuario)
-                .then( usuarioTipo => {
-                    return this.anexarEndereco(usuarioTipo)
-                    .then (usuarioendereco => {
-                        return usuarioendereco;
-                    })
-                });
+        return this.usuario.findOne({where:login})
+        .then(retorno => {
+            if (retorno == null){
+                return retorno;
+            }
+            let usuario = JSON.parse(JSON.stringify(retorno));
+            return this.anexarTipo(usuario)
+            .then( usuarioTipo => {
+                return this.anexarEndereco(usuarioTipo)
+                .then (usuarioendereco => {
+                    return usuarioendereco;
+                })
             })
-            .catch(erro => erro);
-        })
+        })  
     }
 
     anexarTipo(dados){
@@ -112,7 +112,7 @@ class ControladorUsuario{
             } 
             usuario.cliente = {id: cliente.id};
             return usuario;
-        })
+        });
     }
 
     anexarEndereco(dados){
