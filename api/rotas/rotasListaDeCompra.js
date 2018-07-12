@@ -25,4 +25,11 @@ module.exports = function(app){
             res.send(resposta);
         });
     });
+
+    app.post('/listaDeCompra/adicionar', (req,res) => {
+        controladorListaDeCompra.adicionarProduto(req.body)
+        .then(resposta => {
+            res.send(resposta);
+        });
+    });
 }

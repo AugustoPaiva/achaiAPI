@@ -45,7 +45,7 @@ class ControladorListaDeCompra{
         .catch(erro => {
             return {status:"erro",mensagem:"Você já possui uma lista com esse nome"};
         });
-    }
+}
 
     preencheProdutos(lista, id_lista){
         lista.forEach(produto =>{
@@ -65,6 +65,14 @@ class ControladorListaDeCompra{
             } else{
                 return true;
             }
+        });
+    }
+
+    adicionarProduto(dados){
+        return this.produtos_lista.create(dados)
+        .then(resposta => resposta)
+        .catch(erro => {
+            throw erro;
         });
     }
 }
