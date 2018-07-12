@@ -28,7 +28,7 @@ class ControladorUsuario{
                     return usuarioendereco;
                 })
             })
-        })  
+        }) 
     }
 
     criarUsuario(dados,transacao){
@@ -52,7 +52,7 @@ class ControladorUsuario{
         return controladorEndereco.editarEndereco(dados.id,novoendereco)
         .then( enderecoatualizado => {
             return enderecoatualizado;
-        });
+        });    
     }
 
     editarUsuario(id,dados){
@@ -72,9 +72,6 @@ class ControladorUsuario{
                     });
                 })
             })
-            .catch(erro => {
-                console.log(erro);
-            });
         })  
     }
 
@@ -125,7 +122,7 @@ class ControladorUsuario{
             return usuario;
         });
     }
-
+    
     anexarEndereco(dados){
         let usuario = JSON.parse(JSON.stringify(dados));
         if (usuario.endereco == 'null'){
