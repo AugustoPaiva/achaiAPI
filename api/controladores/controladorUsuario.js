@@ -16,8 +16,19 @@ class ControladorUsuario{
 
     usuarioPorId(parametros){
         return this.usuario.findOne({where:parametros})
-        .then(resultado => resultado)
-        .catch(erro => erro); 
+        .then(retorno => {
+            if (retorno == null){
+                return retorno;
+            }
+            let usuario = JSON.parse(JSON.stringify(retorno));
+            return this.anexarTipo(usuario)
+            .then( usuarioTipo => {
+                return this.anexarEndereco(usuarioTipo)
+                .then (usuarioendereco => {
+                    return usuarioendereco;
+                })
+            })
+        })  
     }
 
     criarUsuario(dados,transacao){
