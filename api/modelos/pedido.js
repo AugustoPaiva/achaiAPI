@@ -1,7 +1,7 @@
-module.exports = (sequelize,Sequelize) => {4
+module.exports = (sequelize,Sequelize) => {
     let Pedido = sequelize.define('pedidos',{
         dataEntrega:{
-            type: Sequelize.DATE
+            type: Sequelize.DATEONLY
         },
         id_usuario:{
             type: Sequelize.INTEGER,
@@ -14,4 +14,5 @@ module.exports = (sequelize,Sequelize) => {4
             type: Sequelize.STRING
         }
     });
+    return Pedido;
 }
