@@ -1,6 +1,5 @@
 // Conexão servidor de testes, bastante lento
 // utilizar somente em ultimo caso
-
 /*const env = {
     database: 'achaidb',
     username: 'achaidb',
@@ -17,13 +16,13 @@
 
 
 */
-//Conexão Hostinger, funciona até 12/07/2018
+//Conexão Hostinger, funciona até 23/07/2018
 
 const env = {
-    database: 'u103865086_a1',
-    username: 'u103865086_a1',
+    database: 'u375227992_a1',
+    username: 'u375227992_a1',
     password: 'projetoachai',
-    host:'sql154.main-hosting.eu',
+    host:'sql157.main-hosting.eu',
     dialect: 'mysql',
     pool:{
         max:5,
@@ -34,7 +33,7 @@ const env = {
 }
 
 /*
-Outra conexão free, funciona porém ;
+Outra conexão free, expirada ;
 
 const env = {
     database: 'sql10246793',
