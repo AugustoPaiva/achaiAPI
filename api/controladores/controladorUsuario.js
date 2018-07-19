@@ -108,18 +108,17 @@ class ControladorUsuario{
         let usuario = JSON.parse(JSON.stringify(dados));
         return modelos.cliente.findOne({where:{id_usuario:dados.id}})
         .then(cliente => {
-            if (cliente == null){
-                return modelos.entregador.findOne({where:{id_usuario:dados.id}})
-                .then(entregador => {
-                    if (entregador == null){
-                        return usuario;
-                    } 
-                    usuario.entregador = {id:entregador.id,nota:entregador.nota,cnh:entregador.cnh};
-                    return usuario;
-                })
+            if (cliente != null){
+                usuario.cliente = {id: cliente.id};
             } 
-            usuario.cliente = {id: cliente.id};
-            return usuario;
+            return modelos.entregador.findOne({where:{id_usuario:dados.id}})
+            .then(entregador => {
+                if (entregador != null){
+                    usuario.entregador = {id:entregador.id,nota:entregador.nota,cnh:entregador.cnh};
+                }
+                return usuario;
+            })
+            
         });
     }
     

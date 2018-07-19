@@ -46,6 +46,16 @@ class ControladorCliente{
     }
 
     criarCliente(dados){
+        return this.cliente.create(dados)
+        .then(resultado => resultado)
+        .catch(erro => {
+            let campo = erro.errors[0].path;
+            return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+        });
+    }
+
+
+    criarUsuarioCliente(dados){
         const controladorUsuario = new ControladorUsuario();
         return modelos.conexao.transaction( transacao => {
             return controladorUsuario.criarUsuario(dados,{transaction:transacao})

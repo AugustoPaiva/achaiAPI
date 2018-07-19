@@ -20,10 +20,17 @@ module.exports = function(app){
     
 
     app.post('/clientes', (req,res) => {
-        controladorCliente.criarCliente(req.body)
-        .then (resposta => {
-            res.send(resposta);
-        });
+        if (req.body.id_usuario){
+            controladorCliente.criarCliente(req.body)
+            .then( resposta => {
+                res.status(200).send(resposta);
+            })
+        } else {
+            controladorCliente.criarUsuarioCliente(req.body)
+            .then (resposta => {
+                res.send(resposta);
+            });
+        }
     });
 
     app.put('/clientes', (req,res) => {

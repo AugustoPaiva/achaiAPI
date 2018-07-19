@@ -3,6 +3,7 @@ module.exports = (sequelize,Sequelize) => {
         id_usuario:{
             type: Sequelize.INTEGER,
             allowNull: false,
+            unique:true,
             references:{
                 model:'usuarios',
                 key: 'id'

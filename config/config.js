@@ -31,5 +31,6 @@ db.supermercado = require('../api/modelos/supermercado')(conexao,Sequelize);
 db.preco = require('../api/modelos/preco')(conexao,Sequelize);
 db.produtos_lista = require('../api/modelos/produtos_lista')(conexao,Sequelize);
 db.pedido = require('../api/modelos/pedido')(conexao,Sequelize);
+db.cartao = require('../api/modelos/cartao')(conexao,Sequelize);
 module.exports = db;
 

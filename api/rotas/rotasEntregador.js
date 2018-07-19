@@ -17,11 +17,20 @@ module.exports = function(app){
         });
     });
     
+    
+
     app.post('/entregadores',(req,res)=>{
-        controladorEntregador.criarEntregador(req.body)
-        .then (resposta => {
-            res.status(200).send(resposta);
-        });    
+        if (req.body.id_usuario){
+            controladorEntregador.criarEntregador(req.body)
+            .then( resposta => {
+                res.status(200).send(resposta);
+            })
+        } else {
+            controladorEntregador.criarUsuarioEntregador(req.body)
+            .then (resposta => {
+                res.status(200).send(resposta);
+            });  
+        }
     });
 
     app.put('/entregadores', (req,res) => {

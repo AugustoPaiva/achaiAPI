@@ -37,6 +37,15 @@ class ControladorEntregador{
     }
 
     criarEntregador(dados){
+        return this.entregador.create(dados)
+        .then(resultado => resultado)
+        .catch(erro => {
+            let campo = erro.errors[0].path;
+            return {status:"erro",dados:null,mensagem: campo +" já cadastrado"}
+        });
+    }
+
+    criarUsuarioEntregador(dados){
         const controladorUsuario = new ControladorUsuario();
         let novousuario = {nome:dados.nome,cpf:dados.cpf,email:dados.email,senha: dados.senha};
         let entregador = {cnh: dados.cnh};
@@ -46,7 +55,7 @@ class ControladorEntregador{
                 entregador.id_usuario = usuario.id;
                 return this.entregador.create(entregador,{transaction:transacao})
                 .then(entregador => {
-                    return this.retornar(usuario,entregador);
+                    return {status:"sucesso",dados:this.retornar(usuario,entregador),mensagem:"Cadastrado com sucesso"};
                 },{transaction:transacao});
             },{transaction:transacao})
         })
@@ -67,6 +76,7 @@ class ControladorEntregador{
 
         return resultado;
     }
+
 }
 
 module.exports = ControladorEntregador;

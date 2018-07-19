@@ -22,7 +22,8 @@ require('./api/rotas/rotasProdutos')(app);
 require('./api/rotas/rotasListaDeCompra')(app);
 require('./api/rotas/rotasEndereco')(app);
 require('./api/rotas/rotasPedido')(app);
-   
+require('./api/rotas/rotasCartao')(app);
+
 // Create a Server
 var server = app.listen(process.env.PORT || 3000, function () {
   var host = server.address().address;
