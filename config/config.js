@@ -21,16 +21,16 @@ const db = {};
 db.Sequelize = Sequelize;
 db.conexao = conexao;
 
-db.usuario = require('../api/modelos/usuario')(conexao,Sequelize);
-db.cliente = require('../api/modelos/cliente')(conexao,Sequelize);
-db.entregador = require('../api/modelos/entregador')(conexao,Sequelize);
-db.produto = require('../api/modelos/produto')(conexao,Sequelize);
-db.listaDeCompra = require('../api/modelos/listaDeCompra')(conexao,Sequelize);
-db.endereco = require('../api/modelos/endereco')(conexao,Sequelize);
-db.supermercado = require('../api/modelos/supermercado')(conexao,Sequelize);
-db.preco = require('../api/modelos/preco')(conexao,Sequelize);
-db.produtos_lista = require('../api/modelos/produtos_lista')(conexao,Sequelize);
-db.pedido = require('../api/modelos/pedido')(conexao,Sequelize);
-db.cartao = require('../api/modelos/cartao')(conexao,Sequelize);
+ db.usuario = require('../api/modelos/usuario')(conexao,Sequelize);
+ db.cliente = require('../api/modelos/cliente')(conexao,Sequelize);
+ db.entregador = require('../api/modelos/entregador')(conexao,Sequelize);
+ db.produto = require('../api/modelos/produto')(conexao,Sequelize);
+ db.listaDeCompra = require('../api/modelos/listaDeCompra')(conexao,Sequelize);
+ db.endereco = require('../api/modelos/endereco')(conexao,Sequelize);
+ db.supermercado = require('../api/modelos/supermercado')(conexao,Sequelize);
+ db.preco = require('../api/modelos/preco')(conexao,Sequelize);
+ db.produtos_lista = require('../api/modelos/produtos_lista')(conexao,Sequelize);
+ db.pedido = require('../api/modelos/pedido')(conexao,Sequelize);
+ db.cartao = require('../api/modelos/cartao')(conexao,Sequelize);
 module.exports = db;
 

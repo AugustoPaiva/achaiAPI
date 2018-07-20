@@ -26,7 +26,7 @@ module.exports = (sequelize,Sequelize) => {
             type: Sequelize.INTEGER
         }
     },{
-        tableName: 'produtos_lista'
+        tableName: 'produtos_listas'
     });
     return Produtos_Listas;
 

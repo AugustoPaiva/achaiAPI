@@ -10,6 +10,13 @@ module.exports = (sequelize,Sequelize) => {
                 key:'id'
             }
         },
+        id_cartao:{
+            type: Sequelize.INTEGER,
+            references:{
+                model:'cartoes',
+                key:'id'
+            }
+        },
         status:{
             type: Sequelize.STRING
         }
