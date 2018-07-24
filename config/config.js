@@ -32,5 +32,6 @@ db.conexao = conexao;
  db.produtos_lista = require('../api/modelos/produtos_lista')(conexao,Sequelize);
  db.pedido = require('../api/modelos/pedido')(conexao,Sequelize);
  db.cartao = require('../api/modelos/cartao')(conexao,Sequelize);
+ db.distancia = require('../api/modelos/distancia')(conexao,Sequelize);
 module.exports = db;
 
