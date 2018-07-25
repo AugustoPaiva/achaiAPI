@@ -78,6 +78,12 @@ class ControladorListaDeCompra{
             }
         });
     }
+
+    
+    
+
+    
+
 }
 
 module.exports = ControladorListaDeCompra;

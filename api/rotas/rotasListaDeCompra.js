@@ -1,7 +1,11 @@
 const ControladorListaDeCompra = require('../controladores/controladorListaDeCompra');
+const ControladorPreco = require('../controladores/controladorPreco');
+
+const Combinatorics = require('js-combinatorics');
 
 module.exports = function(app){
     const controladorListaDeCompra = new ControladorListaDeCompra();
+    const controladorPreco = new ControladorPreco();
 
     
     app.get('/listaDeCompra/:id_cliente', (req,res) =>{
@@ -31,5 +35,47 @@ module.exports = function(app){
         .then(resposta => {
             res.send(resposta);
         });
+    });
+
+    app.get('/teste', (req,res) => {
+        // teste
+        let produtos = [6,1,10]; //id dos produtos
+        let supermercados = [1,3,5]; //id dos supermercados
+
+        // aqui ele calcula todas as combinações entre supermercados e produtos
+        // EX: a combinação [3,1,3] quer dizer que:
+        // o produto 6 e o 10 vão ser comprados no supermercado 3 e o produto 1 no supermercado 1
+        let combinacoes = Combinatorics.baseN(supermercados,3).toArray();
+
+        //aqui pra cada combinação possivel ele separa os supermercados envolvidos
+        //EX: se a combinação for [1,1,5] os supermercados envolvidos serão [1,5]
+        combinacoes.forEach(combinacao => {
+            //capturava o valor, mas bugou o valor
+            /*let valorcomb = []
+            for(let i = 0; i < produtos.length; i++){
+                controladorPreco.retornaPreco(produtos[i], combinacoes[0][i])
+                .then( valor => {
+                    valorcomb.push(valor);
+                })
+            }
+            console.log(valorcomb);*/
+            
+
+            let estabelecimentosEnvolvidos = [];
+            combinacao.forEach(supermercado => {
+                if (!estabelecimentosEnvolvidos.includes(supermercado)){
+                    estabelecimentosEnvolvidos.push(supermercado)
+                }
+            });
+            let rotasPossiveis = Combinatorics.permutationCombination(estabelecimentosEnvolvidos).toArray();
+            let melhorRota;
+            let valormelhorRota;
+            rotasPossiveis.forEach(rota => {
+                
+            });
+        });
+
+        
+
     });
 }

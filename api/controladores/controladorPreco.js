@@ -1,4 +1,7 @@
 const modelos = require('../../config/config.js');
+const Grafo = require('node-dijkstra');
+var Dijkstra = require('dijkstra-edsger');
+
 
 class ControladorPreco{
     constructor(){
@@ -6,24 +9,19 @@ class ControladorPreco{
         this.distancia = modelos.distancia;
     }
 
-    /*
-    calcularDistancia(){
-        let lat1 = -8.014426;
-        let long1 = -34.950439;
-        let lat2 = -8.134777;
-        let long2 = -34.907123;
-        let dlon = long2-long1;
-        let dlat = lat2-lat1;
-        console.log(dlon);
-        console.log(dlat);
-        
-        let a = (Math.pow(Math.sin(dlat/2),2)) + Math.cos(lat1) * Math.cos(lat2) * (Math.pow(Math.cos(dlon/2)))
-        //console.log(Math.sin(dlat/2))
-        let c = 2 * (Math.atan2(Math.sqrt(a), Math.sqrt(1-a)))
-        let d = 6371 * c; 
-        console.log(d)
-        return d;
-    }*/
+    
+
+    //função pra pegar o preco de um produto em um supermercado, mas por algum motivo o retorno buga
+    retornaPreco(produto,supermercado){
+        return this.distancia.sequelize.query(
+            "SELECT preco " +
+            "FROM precos " +
+            "WHERE id_produto = '"+produto+"' " +
+            "AND id_supermercado = '"+supermercado+"'")
+        .then( valor => {
+            return valor[0];
+        });
+    }
 
     calcularDistancia(body){
         let lat1 = body.lat1;
@@ -45,10 +43,8 @@ class ControladorPreco{
 
     emRadianos(coord){
         return coord * Math.PI /180
+
     }
 
 } 
-//rural = -8.014426, -34,950439
-//talarico's house = -8-134777,-34,907123
-//14,2
 module.exports = ControladorPreco;
