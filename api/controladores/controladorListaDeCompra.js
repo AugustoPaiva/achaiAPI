@@ -60,6 +60,14 @@ class ControladorListaDeCompra{
         });
     }
 
+    adicionarProduto(dados){
+            return this.produtos_lista.create(dados)
+            .then(resposta => resposta)
+            .catch(erro => {
+            throw erro;
+        });
+    }
+
     consultarLista(dados){
         return this.listaDeCompra.findOne({where:dados})
         .then(resultado => {
