@@ -20,7 +20,6 @@ class ControladorListaDeCompra{
     }
     //corrigir
     retornarLista(parametros){
-        return this.listaDeCompra.sequelize.query
         return this.listaDeCompra.sequelize.query(
             "SELECT P.id, P.nome, P.marca, L.quantidade " +
             "FROM produtos as P, produtos_lista as L " + 
