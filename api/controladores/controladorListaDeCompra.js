@@ -20,10 +20,11 @@ class ControladorListaDeCompra{
     }
     //corrigir
     retornarLista(parametros){
+        return this.listaDeCompra.sequelize.query
         return this.listaDeCompra.sequelize.query(
             "SELECT P.id, P.nome, P.marca, L.quantidade " +
-            "FROM produtos as P, produtos_lista as L" + 
-            "WHERE P.id = L.id_produto and L.id_lista = '" + parametros.id + "'")
+            "FROM produtos as P, produtos_lista as L " + 
+            "WHERE P.id = L.id_produto and L.id_lista = '" + parametros.id + "'"
         .then(resultado => resultado[0])
         .catch(erro => erro);
     }
@@ -48,7 +49,7 @@ class ControladorListaDeCompra{
         .catch(erro => {
             return {status:"erro",mensagem:"Você já possui uma lista com esse nome"};
         });
-}
+    }
 
     preencheProdutos(lista, id_lista){
         lista.forEach(produto =>{
@@ -68,14 +69,6 @@ class ControladorListaDeCompra{
             } else{
                 return true;
             }
-        });
-    }
-
-    adicionarProduto(dados){
-        return this.produtos_lista.create(dados)
-        .then(resposta => resposta)
-        .catch(erro => {
-            throw erro;
         });
     }
 }
