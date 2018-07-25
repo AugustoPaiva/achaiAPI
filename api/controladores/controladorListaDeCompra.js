@@ -22,7 +22,7 @@ class ControladorListaDeCompra{
     retornarLista(parametros){
         return this.listaDeCompra.sequelize.query(
             "SELECT P.id, P.nome, P.marca, L.quantidade " +
-            "FROM produtos as P, produtos_lista as L " + 
+            "FROM produtos as P, produtos_listas as L " + 
             "WHERE P.id = L.id_produto and L.id_lista = '" + parametros.id + "'")
         .then(resultado => resultado[0])
         .catch(erro => erro);
