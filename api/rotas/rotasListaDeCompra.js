@@ -38,7 +38,14 @@ module.exports = function(app){
     });
 
     app.get('/teste', (req,res) => {
-        // teste
+        return controladorPreco.retornaMercados({
+            lat:-8.134777,
+            long:-34.907123
+        })
+        .then(resposta => {
+            res.send(resposta);
+        });
+        /* teste
         let produtos = [6,1,10]; //id dos produtos
         let supermercados = [1,3,5]; //id dos supermercados
 
@@ -51,14 +58,14 @@ module.exports = function(app){
         //EX: se a combinação for [1,1,5] os supermercados envolvidos serão [1,5]
         combinacoes.forEach(combinacao => {
             //capturava o valor, mas bugou o valor
-            /*let valorcomb = []
+            let valorcomb = []
             for(let i = 0; i < produtos.length; i++){
                 controladorPreco.retornaPreco(produtos[i], combinacoes[0][i])
                 .then( valor => {
                     valorcomb.push(valor);
                 })
             }
-            console.log(valorcomb);*/
+            console.log(valorcomb);
             
 
             let estabelecimentosEnvolvidos = [];
@@ -73,9 +80,7 @@ module.exports = function(app){
             rotasPossiveis.forEach(rota => {
                 
             });
-        });
-
-        
+        });*/
 
     });
 }
