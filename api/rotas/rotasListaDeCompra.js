@@ -1,7 +1,7 @@
 const ControladorListaDeCompra = require('../controladores/controladorListaDeCompra');
 const ControladorPreco = require('../controladores/controladorPreco');
 
-const Combinatorics = require('js-combinatorics');
+
 
 module.exports = function(app){
     const controladorListaDeCompra = new ControladorListaDeCompra();
@@ -37,50 +37,27 @@ module.exports = function(app){
         });
     });
 
-    app.get('/teste', (req,res) => {
-        return controladorPreco.retornaMercados({
-            lat:-8.134777,
-            long:-34.907123
-        })
+    app.post('/teste', (req,res) => {
+        let body  = {
+            destino:{"lat":-8.134777,"long":-34.907123},
+            lista: [
+                {"id":1,"nome":"arroz branco 1kg","marca":"camil","imagem":null,"codBarras":"123456789"},
+                {"id":18,"nome":"peixe congelado 1kg","marca":"qualitá","imagem":null,"codBarras":"123456789"},
+                {"id":9,"nome":"maminha 1kg","marca":"friboi","imagem":null,"codBarras":"123456789"},
+                {"id":33,"nome":"café em pó 500g","marca":"3 corações","imagem":null,"codBarras":"123456789"},
+                {"id":24,"nome":"bolacha salgada 400g","marca":"marilan","imagem":null,"codBarras":"123456789"},
+                {"id":27,"nome":"açucar 1kg","marca":"união","imagem":null,"codBarras":"123456789"},
+                {"id":12,"nome":"picanha 1kg","marca":"saudali","imagem":null,"codBarras":"123456789"},
+                {"id":6,"nome":"feijão carioca 1kg","marca":"namorado","imagem":null,"codBarras":"123456789"},
+                {"id":30,"nome":"adoçante 100ml","marca":"adocyl","imagem":null,"codBarras":"123456789"}
+            ]
+        }
+        controladorPreco.calcularPrecos(body)
         .then(resposta => {
             res.send(resposta);
         });
-        /* teste
-        let produtos = [6,1,10]; //id dos produtos
-        let supermercados = [1,3,5]; //id dos supermercados
-
-        // aqui ele calcula todas as combinações entre supermercados e produtos
-        // EX: a combinação [3,1,3] quer dizer que:
-        // o produto 6 e o 10 vão ser comprados no supermercado 3 e o produto 1 no supermercado 1
-        let combinacoes = Combinatorics.baseN(supermercados,3).toArray();
-
-        //aqui pra cada combinação possivel ele separa os supermercados envolvidos
-        //EX: se a combinação for [1,1,5] os supermercados envolvidos serão [1,5]
-        combinacoes.forEach(combinacao => {
-            //capturava o valor, mas bugou o valor
-            let valorcomb = []
-            for(let i = 0; i < produtos.length; i++){
-                controladorPreco.retornaPreco(produtos[i], combinacoes[0][i])
-                .then( valor => {
-                    valorcomb.push(valor);
-                })
-            }
-            console.log(valorcomb);
-            
-
-            let estabelecimentosEnvolvidos = [];
-            combinacao.forEach(supermercado => {
-                if (!estabelecimentosEnvolvidos.includes(supermercado)){
-                    estabelecimentosEnvolvidos.push(supermercado)
-                }
-            });
-            let rotasPossiveis = Combinatorics.permutationCombination(estabelecimentosEnvolvidos).toArray();
-            let melhorRota;
-            let valormelhorRota;
-            rotasPossiveis.forEach(rota => {
-                
-            });
-        });*/
+        
+        
 
     });
 }
