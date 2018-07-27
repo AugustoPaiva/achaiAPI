@@ -1,7 +1,8 @@
 const modelos = require('../../config/config.js');
 const Grafo = require('node-dijkstra');
-var Dijkstra = require('dijkstra-edsger');
+const Dijkstra = require('dijkstra-edsger');
 const Combinatorics = require('js-combinatorics');
+const asyncLoop = require('node-async-loop');
 
 
 class ControladorPreco{
@@ -63,7 +64,7 @@ class ControladorPreco{
         distancias = distancias.sort(function (a,b) {
             return a[1]-b[1]
         });
-        return distancias.slice(0,3);
+        return distancias.slice(0,5);
     }   
 
 
@@ -84,22 +85,58 @@ class ControladorPreco{
         let supermercados = [];
         let produtos = [];
         let precos= [];
-
+        console.log(dados.lista.length);
         return this.retornaMercadosProximos(dados.destino)
         .then(ordem => {
             mercadosProximos = ordem;
             mercadosProximos.forEach(mercado => {
                 supermercados.push(mercado[0])
             });
+            
             dados.lista.forEach(produto => {
-                produtos.push(produto.id);
-            });
+                return this.menorPreco(produto.id,supermercados)
+                .then(res => {
+                    produto = JSON.parse(JSON.stringify(produto));
+                    produto.preco = res.preco;
+                    produto.supermercado = res.id_supermercado;
+                    console.log(produto)
+                })
+            })
             
-            let combinacoes = Combinatorics.baseN(supermercados,15).toArray();
-            
-            return combinacoes;
         });
+        
+    }
 
+   
+    
+
+    menorPreco(id,supermercados){
+        let menor;
+        return this.supermercado.sequelize.query(
+            "SELECT preco, id_supermercado, id_produto " +
+            "FROM precos WHERE id_produto = '" +id+ "'"+
+            "AND id_supermercado IN (1, 5, 11, 12, 6) order by preco limit 1", { type: modelos.Sequelize.QueryTypes.SELECT})
+        .then(re => {
+            return re[0];
+        })
+        
+    }
+
+        /*
+        
+        this.supermercados.forEach(supermecado => {
+            this.preco.sequelize.query(
+                
+            ).then( result => {
+                if (result < menorvalor || menorvalor == null){
+                    menorvalor = result;
+                    menorid = supermecado;
+                }
+            })
+        }).then(ret => {
+            return menorid;
+        })
+        
     }
 
 
